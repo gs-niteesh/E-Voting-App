@@ -52,7 +52,7 @@ app.post('/api/electionName', async function(req, res) {
 app.post('/api/adminLogin', async function(req, res) {
     admin.findOne({
         username: req.body.username,
-        password: md5(req.body.password),
+        password: req.body.password,
     }).then(election => {
         if(election === null){
             res.send(false);
