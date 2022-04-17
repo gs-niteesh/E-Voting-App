@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import Web3 from 'web3';
 import Election from '../../build/Election.json'
 
-
-class NewCandidate extends Component{
-
+class NewUser extends Component{
     async componentWillMount() {
         await this.loadWeb3()
         await this.loadBlockChain()
@@ -22,7 +20,6 @@ class NewCandidate extends Component{
             window.alert('Non-Ethereum browser detected. You should consider trying MetaMask!')
         }
     }
-    
 
     handleInputChange = (e) => {
         this.setState({
@@ -46,54 +43,55 @@ class NewCandidate extends Component{
 
     handleSubmit = (e) => {
         e.preventDefault();
-        this.addCandidates();
+        this.addUser();
     }
-    
-    addCandidates() {
+
+    addUser() {
         console.log(this.state);
         this.setState({ loading: true })
-        this.state.election.methods.addCandidate(this.state.candidate_name, this.state.candidate_details, this.state.id).send({ from: this.state.account })
+        console.log('ID: ', this.state.user_election_id);
+        console.log('ID Type: ', typeof this.state.user_election_id);
+        this.state.election.methods.addUser(this.state.user_name, this.state.user_aadhar, this.state.user_election_id).send({ from: this.state.account })
+        // this.state.election.methods.addUser("Name", "AADHAR", 123).send({ from: this.state.account })
         .once('receipt', (receipt) => {
             console.log(receipt);
           this.setState({ loading: false })
           window.location.assign("/");
         })
     }
-    
+
     constructor(props) {
         super(props)
         this.state = {
           account: '',
           election: null,
-          candidate_name: null,
-          candidate_details: null,
-          id: null
+          user_name: null,
+          user_aadhar: null,
+          user_election_id: null,
         }
-        this.addCandidates = this.addCandidates.bind(this)
+        this.addUser = this.addUser.bind(this)
     }
 
     componentDidMount(){
-        let id = this.props.match.params.id;
-        this.setState({
-            id: id,
-        })
     }
 
     render(){
         return(
             <div className="container">
                 <form onSubmit={this.handleSubmit}>
-                    <input type="text" id="candidate_name" name="candidate_name" onChange={this.handleInputChange} required/>
-                    <label htmlFor="name">Candidate Name</label><br></br>
-                    <input type="text" id="candidate_details" name="candidate_details" onChange={this.handleInputChange} required/>
-                    <label htmlFor="name">Candidate details</label><br></br><br></br>
+                    <input type="text" id="user_name" name="user_name" onChange={this.handleInputChange} required/>
+                    <label htmlFor="name">User Name</label><br></br>
+                    <input type="text" id="user_aadhar" name="user_aadhar" onChange={this.handleInputChange} required/>
+                    <label htmlFor="name">User AADHAR</label><br></br><br></br>
+                    <input type="text" id="user_election_id" name="user_election_id" onChange={this.handleInputChange} required/>
+                    <label htmlFor="name">Constituency ID</label><br></br><br></br>
                     <button className="btn blue darken-2" type="submit" name="action">Submit
                         <i className="material-icons right">send</i>
                     </button>
                 </form>
-            </div>            
+            </div>
         )
     }
 }
 
-export default NewCandidate;
+export default NewUser;

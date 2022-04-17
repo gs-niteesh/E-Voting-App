@@ -17,7 +17,7 @@ class ElectionData extends Component {
 
     componentDidMount(){
         let currentComponent = this;
-      
+
         axios.get('http://localhost:8000/api/electionName', {})
         .then(function(response){ 
             var data = response.data;
@@ -61,7 +61,6 @@ class ElectionData extends Component {
                         <Link to={"/candidates/" + election.election_id} className="title" onClick={this.handleInputChange}><button id={election.election_id} className="waves-effect waves-light btn yellow darken-3">Add candidate</button></Link>
                         &nbsp;&nbsp;&nbsp;
                         <Link to={"/voteCount/" + election.election_id} className="title" onClick={this.handleInputChange}><button id={election.election_id} className="waves-effect waves-light btn red darken-3">View vote Count</button></Link>
-                        
                     </li>
                 </div>
             )
@@ -74,6 +73,11 @@ class ElectionData extends Component {
                     </li>
                         {electionList}
                 </ul>
+                <Link to={"/listusers/"} className="title" onClick={this.handleInputChange}><button className="waves-effect waves-light btn blue darken-3">List Users</button></Link>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <Link to={"/newuser/"} className="title" onClick={this.handleInputChange}><button className="waves-effect waves-light btn blue darken-3">Add User</button></Link>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <Link to={"/newelection/"} className="title" onClick={this.handleInputChange}><button className="waves-effect waves-light btn green darken-3">Add Election</button></Link>
             </div>
         )
     }
