@@ -27,6 +27,7 @@ class ElectionData extends Component {
                 // election_id: data[2],
                 final: data
             })
+            console.log('Election Data: ', data);
         })
         .catch(function(err){
             console.error(err);
@@ -56,7 +57,7 @@ class ElectionData extends Component {
                 <div className="contact" key={election.election_id}>
                     <li className="collection-item avatar">
                         <i className="material-icons circle blue darken-2">ballot</i>
-                        <p><b>{election.election_name}</b></p>
+                        <p><b>{election.election_name} (ID: <b>{election.election_id})</b></b></p>
                         <br></br>
                         <Link to={"/candidates/" + election.election_id} className="title" onClick={this.handleInputChange}><button id={election.election_id} className="waves-effect waves-light btn yellow darken-3">Add candidate</button></Link>
                         &nbsp;&nbsp;&nbsp;

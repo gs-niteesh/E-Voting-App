@@ -47,14 +47,10 @@ class ListUsers extends Component{
                     users: [...this.state.users, user]
                 })
             }
-            console.log(this.state.users)
+            console.log(this.state.users);
         } else {
             window.alert('Election contract not deployed to detected network.')
         }
-    }
-
-    handleSubmit = (e) => {
-        e.preventDefault();
     }
 
     constructor(props) {
@@ -69,14 +65,27 @@ class ListUsers extends Component{
     }
 
     render(){
+        const usersList = this.state.users.map(user => {
+            return (
+                <div className="contact" key={user.id}>
+                    <li className="collection-item avatar">
+                        <i className="material-icons circle blue darken-2">person</i>
+                        <p><b>{user.name}</b></p>
+                        <p><b>{user.aadhar}</b></p>
+                        <br></br>
+                    </li>
+                </div>
+            )
+        });
         return(
             <div className="container">
-                <form onSubmit={this.handleSubmit}>
-                    <button className="btn blue darken-2" type="submit" name="action">Submit
-                        <i className="material-icons right">send</i>
-                    </button>
-                </form>
-            </div>            
+                <ul className="collection">
+                    <li className="collection-item avatar">
+                        <h3>Users</h3>
+                    </li>
+                        {usersList}
+                </ul>
+            </div>
         )
     }
 }

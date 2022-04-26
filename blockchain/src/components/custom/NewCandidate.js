@@ -52,14 +52,14 @@ class NewCandidate extends Component{
     addCandidates() {
         console.log(this.state);
         this.setState({ loading: true })
-        this.state.election.methods.addCandidate(this.state.candidate_name, this.state.candidate_details, this.state.id).send({ from: this.state.account })
+        this.state.election.methods.addCandidate(this.state.candidate_name, this.state.candidate_details, this.state.candidate_img_url, this.state.id).send({ from: this.state.account })
         .once('receipt', (receipt) => {
             console.log(receipt);
           this.setState({ loading: false })
           window.location.assign("/");
         })
     }
-    
+
     constructor(props) {
         super(props)
         this.state = {
@@ -67,6 +67,7 @@ class NewCandidate extends Component{
           election: null,
           candidate_name: null,
           candidate_details: null,
+          candidate_img_url: null,
           id: null
         }
         this.addCandidates = this.addCandidates.bind(this)
@@ -87,6 +88,8 @@ class NewCandidate extends Component{
                     <label htmlFor="name">Candidate Name</label><br></br>
                     <input type="text" id="candidate_details" name="candidate_details" onChange={this.handleInputChange} required/>
                     <label htmlFor="name">Candidate details</label><br></br><br></br>
+                    <input type="text" id="candidate_img_url" name="candidate_img_url" onChange={this.handleInputChange} required/>
+                    <label htmlFor="name">Candidate Image URL</label><br></br><br></br>
                     <button className="btn blue darken-2" type="submit" name="action">Submit
                         <i className="material-icons right">send</i>
                     </button>

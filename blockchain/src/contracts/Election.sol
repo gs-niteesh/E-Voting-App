@@ -9,6 +9,7 @@ contract Election {
         uint voteCount;
         string details;
         string election_id;
+        string image_url;
     }
 
     struct User {
@@ -36,9 +37,9 @@ contract Election {
         uint indexed _candidateId
     );
 
-    function addCandidate(string memory _name, string memory _details, string memory _election_id) public {
+    function addCandidate(string memory _name, string memory _details, string memory _image_url, string memory _election_id) public {
         candidatesCount++;
-        candidates[candidatesCount] = Candidate(candidatesCount, _name, 0, _details, _election_id);
+        candidates[candidatesCount] = Candidate(candidatesCount, _name, 0, _details, _election_id, _image_url);
     }
 
     function addUser(string memory _name, string memory _aadhar, string memory _constituency_id) public {

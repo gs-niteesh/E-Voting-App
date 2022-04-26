@@ -49,10 +49,7 @@ class NewUser extends Component{
     addUser() {
         console.log(this.state);
         this.setState({ loading: true })
-        console.log('ID: ', this.state.user_election_id);
-        console.log('ID Type: ', typeof this.state.user_election_id);
         this.state.election.methods.addUser(this.state.user_name, this.state.user_aadhar, this.state.user_election_id).send({ from: this.state.account })
-        // this.state.election.methods.addUser("Name", "AADHAR", 123).send({ from: this.state.account })
         .once('receipt', (receipt) => {
             console.log(receipt);
           this.setState({ loading: false })

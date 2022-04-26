@@ -92,11 +92,13 @@ class Vote extends Component {
         const electionList = this.state.candidates.map(candidates => {
             return (
                 <div className="contact" key={candidates.id}>
-                    <li className="collection-item avatar">
-                        <i className="material-icons circle blue darken-2">ballot</i>
-                        <p><b>{candidates.name}</b></p>
-                        <p>{candidates.details}</p>
-                        <a href="" className="secondary-content"><button id={candidates.id} onClick={this.handleInputChange} className="waves-effect waves-light btn blue darken-2">Vote</button></a>
+                    <li style={{'min-height': "140px"}} className="collection-item avatar">
+                        <img style={{width: "120px", height: "120px"}} className="material-icons circle darken-2" src={candidates.image_url}></img>
+                        <div style={{"margin-top": "25px", "margin-left": "140px"}}>
+                        <p><b style={{"font-size": "20px"}}>{candidates.name}</b></p>
+                        <p style={{"font-size": "16px"}}>{candidates.details}</p>
+                        </div>
+                        <a style={{"margin-top": "30px"}} href="" className="secondary-content"><button id={candidates.id} onClick={this.handleInputChange} className="waves-effect waves-light btn blue darken-2">Vote</button></a>
                     </li>
                 </div>
             )

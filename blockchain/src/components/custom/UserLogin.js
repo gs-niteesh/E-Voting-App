@@ -35,7 +35,9 @@ class UserLogin extends Component {
             const userCount = await election.methods.usersCount().call()
             for (var i = 1; i <= userCount; i++) {
                 const user = await election.methods.users(i).call()
-                console.log(user);
+                this.setState({
+                    users: [...this.state.users, user]
+                })
             }
         } else {
             window.alert('Election contract not deployed to detected network.')
@@ -45,8 +47,9 @@ class UserLogin extends Component {
     constructor(props){
         super(props)
         this.state = {
-            'username': null,
-            'aadhar': null
+            username: null,
+            aadhar: null,
+            users: [],
         }
     }
 
@@ -58,7 +61,24 @@ class UserLogin extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        const { username, password } = this.state;
+        const username = this.state.username;
+        const aadhar = this.state.aadhar;
+        const users = this.state.users;
+
+        console.log('User: ', username);
+        console.log('AADHAR: ', aadhar);
+        let foundUser = false;
+        users.forEach((user) => {
+            if (username === user.name && aadhar === user.aadhar) {
+                console.log('Matched user: ', user);
+                window.location.assign(`/vote/${user.contituency_id}`);
+                foundUser = true;
+            }
+        });
+        if (!foundUser) {
+            window.alert("No such user found!");
+            window.location.assign("/");
+        }
     }
 
 
@@ -68,13 +88,13 @@ class UserLogin extends Component {
                 <form onSubmit={this.handleSubmit}>
                     <input type="text" id="username" name="username" onChange={this.handleInputChange} required/>
                     <label htmlFor="name">Username</label><br></br>
-                    <input type="text" id="password" name="password" onChange={this.handleInputChange} required/>
+                    <input type="text" id="aadhar" name="aadhar" onChange={this.handleInputChange} required/>
                     <label htmlFor="name">AADHAR</label><br></br><br></br>
                     <button className="btn blue darken-2" type="submit" name="action">Submit
                         <i className="material-icons right">send</i>
                     </button>
                 </form>
-            </div>      
+            </div>
         )
     }
 }
